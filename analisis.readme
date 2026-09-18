@@ -1,0 +1,49 @@
+1. Nama anggota kelompok: 
+- Mouza aqilla maysa izzhar (18)
+- Sirly hulwiyah (33) 
+
+2. Dataset yang dipilih: data penjualan kantin/toko
+
+3. Pertanyaan analisis awal:
+- Apa saja produk yang menghasilkan total pendapatan terbesar?
+- Bagaimana performa total penjualan dan omset dari setiap kasir?
+- Metode pembayaran apa yang paling sering digunakan pelanggan?
+
+4. Dugaan masalah kualitas data
+[x] Missing value pada kolom: jumlah_terjual, harga_satuan, nama_kasir
+[x] Duplikat data: Ada baris transaksi ganda (misal: TRX0042, TRX0028, TRX0057)
+[x] Tipe data tidak sesuai pada kolom: tanggal (format mixed), harga_satuan (string 'Rp'), jumlah_terjual (string 'pcs')
+[x] Lainnya: Outlier angka pada jumlah_terjual (500 pcs)
+
+5. Rencana teknik pembersihan:
+Hapus duplikat (drop_duplicates), bersihkan teks "Rp"/"pcs" (str.replace), ubah format tanggal (to_datetime), imputasi nilai kosong harga_satuan & jumlah_terjual dengan nilai median per produk, serta koreksi nilai outlier
+
+6. Rencana manipulasi data
+- Filter: Kategori = 'Makanan' & Total Pendapatan > Rp 50.000
+- Sort: Total Pendapatan (Descending)
+- Kolom turunan: total_pendapatan (jumlah_terjual * harga_satuan)
+- Groupby/agregasi: Total transaksi, item terjual, dan pendapatan per nama_kasir
+
+7. Jadwal Kerja:
+P3 (Loading & Inspection): Pertemuan 3
+P4 (Cleaning): Pertemuan 4
+P5 (Manipulation): Pertemuan 5
+P6 (Uji & Presentasi): Pertemuan 6
+
+8. Pembagian peran
+Anggota 1: Handling Data Cleaning & Code Implementation (Jupyter Notebook)
+Anggota 2: Data Inspection, Manipulasi Data, & Menyusun Laporan/Presentasi
+
+
+#PERTANYAAN
+6. Tahap mana yang paling menantang bagi kelompokmu, dan bagaimana kalian mengatasinya?
+jawab:
+Data cleaning, karena format teksnya berantakan (ada "Rp", "pcs", beda format tanggal) dan ada outlier angka 500. Solusinya, kami bersihkan teksnya pakai fungsi Pandas dan isi nilai kosong pakai median tiap produk.
+
+7. Menurutmu, mengapa keputusan membersihkan data perlu didasarkan pada alasan yang jelas, bukan asal-asalan?
+jawab:
+Kalau asal hapus, data transaksi penting bisa hilang. Kalau asal isi angka, perhitungan omset bisa salah. Keputusan yang tepat bikin hasil analisis tetap valid.
+
+8. Apa hubungan antara dataset bersih hasil proyek ini dengan pekerjaan seorang Data Analyst di dunia nyata?
+jawab:
+Data riil di lapangan hampir pasti kotor. Data Analyst wajib membersihkannya dulu karena jika data kotor dipakai analisis, hasil dan keputusan bisnisnya bakal ikut salah (garbage in, garbage out).
